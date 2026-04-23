@@ -86,6 +86,20 @@
             border-left: 4px solid var(--accent-gold);
         }
 
+        .expertise-grid-card {
+            background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 100%);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .expertise-grid-card:hover {
+            background: linear-gradient(180deg, rgba(197, 160, 89, 0.1) 0%, rgba(197, 160, 89, 0.02) 100%);
+            border-color: rgba(197, 160, 89, 0.4);
+            transform: scale(1.02);
+        }
+
         @media (max-width: 640px) {
             h1 { font-size: 2.5rem !important; }
         }
@@ -229,26 +243,22 @@
         <div class="max-w-6xl mx-auto">
             <h3 class="text-3xl md:text-5xl font-black mb-16 highlight-line italic text-center">মার্কেটিং স্ট্র্যাটেজি মিক্স</h3>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- ADS -->
-                <div class="p-8 glass-card border-b-4 border-blue-500">
+                <div class="p-8 glass-card border-b-4 border-blue-500 text-left">
                     <div class="text-4xl mb-6">📱</div>
                     <h5 class="text-sm font-black uppercase text-white mb-4 tracking-tighter">Performance Ads</h5>
                     <p class="text-[11px] text-zinc-400 leading-relaxed font-medium">সরাসরি যারা সিট খুঁজছেন তাদের কাছে ডাটা-ট্র্যাকিংয়ের মাধ্যমে বিজ্ঞাপন পৌঁছে দেওয়া হয় যাতে সরাসরি সেলস বৃদ্ধি পায়।</p>
                 </div>
-                <!-- CONTENT -->
-                <div class="p-8 glass-card border-b-4 border-[#C5A059]">
+                <div class="p-8 glass-card border-b-4 border-[#C5A059] text-left">
                     <div class="text-4xl mb-6">🤳</div>
                     <h5 class="text-sm font-black uppercase text-white mb-4 tracking-tighter">UGC Content</h5>
                     <p class="text-[11px] text-zinc-400 leading-relaxed font-medium">মেম্বারদের রিয়েল লাইফস্টাইল ভিডিও যা সোশ্যাল মিডিয়ায় বিশ্বাসযোগ্যতা ও ব্র্যান্ড ইমেজ বহুগুণ বাড়িয়ে দেয়।</p>
                 </div>
-                <!-- BTL -->
-                <div class="p-8 glass-card border-b-4 border-red-500">
+                <div class="p-8 glass-card border-b-4 border-red-500 text-left">
                     <div class="text-4xl mb-6">🏫</div>
                     <h5 class="text-sm font-black uppercase text-white mb-4 tracking-tighter">Campus BTL</h5>
                     <p class="text-[11px] text-zinc-400 leading-relaxed font-medium">ক্যাম্পাসগুলোতে সরাসরি অ্যাক্টিভেশনের মাধ্যমে শিক্ষার্থীদের সাথে সরাসরি সংযোগ স্থাপন ও ডাটাবেজ সংগ্রহ করা।</p>
                 </div>
-                <!-- AI -->
-                <div class="p-8 glass-card border-b-4 border-green-500">
+                <div class="p-8 glass-card border-b-4 border-green-500 text-left">
                     <div class="text-4xl mb-6">🤖</div>
                     <h5 class="text-sm font-black uppercase text-white mb-4 tracking-tighter">AI Funnels</h5>
                     <p class="text-[11px] text-zinc-400 leading-relaxed font-medium">২৪/৭ অটোমেটেড চ্যাটবট দিয়ে কাস্টমার হ্যান্ডেলিং যা সেলস প্রসেসকে করে তোলে দ্রুত এবং নির্ভুল।</p>
@@ -259,7 +269,7 @@
 
     <!-- 5: Target Audience -->
     <section class="section-compact bg-[#080808]">
-        <div class="max-w-6xl mx-auto">
+        <div class="max-w-6xl mx-auto text-left">
             <h3 class="text-3xl md:text-5xl font-black mb-16 highlight-line italic">মূল গ্রাহক</h3>
             <div class="grid md:grid-cols-3 gap-8">
                 <div class="p-8 glass-card border border-blue-500/20 text-center">
@@ -283,18 +293,46 @@
 
     <!-- 6: Expertise & CTA -->
     <section class="section-compact pb-24">
-        <div class="max-w-5xl mx-auto text-center">
+        <div class="max-w-6xl mx-auto text-center">
             <h3 class="text-4xl md:text-7xl font-black mb-10 leading-tight tracking-tighter">Your Dream,<br><span class="gold-gradient italic">Our Strategy.</span></h3>
+            
+            <!-- Expertise Paragraph -->
             <div class="p-10 glass-card border-[#C5A059]/30 mb-16">
                 <p class="text-zinc-300 text-lg md:text-2xl leading-relaxed max-w-4xl mx-auto">
                     পণ্য বা সেবার <span class="text-[#C5A059] font-bold">Premiumness</span> তখনই ফুটে ওঠে, যখন তা উপস্থাপিত হয় <span class="italic text-white">Right Approach</span> এ। বর্তমান যুগে যত বড় ব্যবসাই হোক না কেনো - কন্ট্রল থাকে হাতের মুঠোয়। আমাদের <span class="text-[#ef4444] font-bold italic underline">Expertise</span> আপনার ব্যবসায়কে এনে দেবে এক অনন্য উচ্চতা!
                 </p>
             </div>
+
+            <!-- Expertise Grid (Re-added as requested) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-20 text-left">
+                <div class="expertise-grid-card">
+                    <div class="text-[#C5A059] mb-6 text-4xl">💻</div>
+                    <h4 class="font-black text-xs mb-3 uppercase tracking-[0.2em] italic">Websites & Apps</h4>
+                    <p class="text-[11px] text-zinc-500 leading-relaxed">হাই-কনভার্টিং সেলস ফানেল এবং প্রিমিয়াম ইউজার ইন্টারফেস ডিজাইন যা আপনার ব্র্যান্ড ভ্যালু বাড়াবে।</p>
+                </div>
+                <div class="expertise-grid-card">
+                    <div class="text-[#C5A059] mb-6 text-4xl">🎯</div>
+                    <h4 class="font-black text-xs mb-3 uppercase tracking-[0.2em] italic">Marketing Plans</h4>
+                    <p class="text-[11px] text-zinc-500 leading-relaxed">সম্পূর্ণ কাস্টমাইজড এবং ডেটা-ব্যাকড রোডম্যাপ যা নিশ্চিত করবে আপনার ব্যবসার সর্বোচ্চ প্রচার।</p>
+                </div>
+                <div class="expertise-grid-card">
+                    <div class="text-[#C5A059] mb-6 text-4xl">⚙️</div>
+                    <h4 class="font-black text-xs mb-3 uppercase tracking-[0.2em] italic">AI Automations</h4>
+                    <p class="text-[11px] text-zinc-500 leading-relaxed">স্মার্ট ওয়ার্কফ্লো এবং অটোমেশন যা আপনার অপারেশনাল কস্ট কমিয়ে আনবে প্রায় ৪০% পর্যন্ত।</p>
+                </div>
+                <div class="expertise-grid-card">
+                    <div class="text-[#C5A059] mb-6 text-4xl">📊</div>
+                    <h4 class="font-black text-xs mb-3 uppercase tracking-[0.2em] italic">Financial Models</h4>
+                    <p class="text-[11px] text-zinc-500 leading-relaxed">নিখুঁত ফিন্যান্সিয়াল প্ল্যানিং যা আপনার ইনভেস্টমেন্ট সুরক্ষা এবং সর্বোচ্চ ROI নিশ্চিত করবে।</p>
+                </div>
+            </div>
             
+            <!-- CTA Button -->
             <button onclick="toggleModal(true)" class="bg-[#C5A059] text-black px-16 py-6 rounded-full font-black text-xl hover:scale-105 transition-transform shadow-[0_20px_50px_rgba(197,160,89,0.3)] uppercase tracking-widest">
                 FREE Planning Session
             </button>
-            <div class="mt-10">
+
+            <div class="mt-12">
                 <button onclick="toggleSourceModal(true)" class="text-zinc-600 text-[11px] underline hover:text-[#C5A059] uppercase tracking-[0.4em] font-bold">
                     Sources of the analysis
                 </button>
