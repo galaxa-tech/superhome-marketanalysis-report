@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>GALAXA TECH | Market Analysis Presentation</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,6 +25,7 @@
             color: #ffffff;
             font-family: 'Plus Jakarta Sans', sans-serif;
             overflow-x: hidden;
+            width: 100%;
         }
 
         .bn-text {
@@ -47,15 +48,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 5rem 1rem;
+            padding: 4rem 1.25rem;
             position: relative;
-        }
-
-        @media (min-height: 700px) {
-            .slide-container {
-                height: 100vh;
-                padding: 2rem;
-            }
+            box-sizing: border-box;
         }
 
         .card-glass {
@@ -71,15 +66,56 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(rgba(5, 5, 5, 0.7), rgba(5, 5, 5, 0.9)), 
+            background: linear-gradient(rgba(5, 5, 5, 0.8), rgba(5, 5, 5, 0.95)), 
                         url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=2070');
             background-size: cover;
             background-position: center;
             z-index: -1;
         }
 
-        .glow-blue {
-            box-shadow: 0 0 30px rgba(0, 112, 255, 0.2);
+        .reveal-element {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        /* Modal Mobile Optimization */
+        #planningModal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            backdrop-filter: blur(15px);
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+
+        #planningModal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            max-height: 90vh;
+            overflow-y: auto;
+            width: 100%;
+            max-width: 600px;
+            position: relative;
+        }
+
+        /* Navigation Dots - Hidden on Mobile for cleaner UX */
+        @media (max-width: 768px) {
+            .slide-container {
+                padding-top: 5rem;
+                padding-bottom: 5rem;
+            }
+            h1 { font-size: 2.2rem !important; }
+            .nav-dots { display: none; }
+            .chart-box { height: 220px !important; }
         }
 
         .timeline-dot::after {
@@ -94,314 +130,299 @@
             transform: translateX(-50%);
         }
 
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: var(--deep-black); }
-        ::-webkit-scrollbar-thumb { background: var(--matte-gold); border-radius: 10px; }
-
-        .reveal-element {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
         .expertise-card {
-            border-top: 2px solid transparent;
-            transition: all 0.4s ease;
+            transition: all 0.3s ease;
         }
-
-        .expertise-card:hover {
-            border-top-color: var(--matte-gold);
-            background: rgba(197, 160, 89, 0.05);
-            transform: translateY(-5px);
-        }
-
-        /* Mobile specific adjustments */
-        @media (max-width: 768px) {
-            .slide-container {
-                height: auto;
-                min-height: 100vh;
-            }
-            h1 { font-size: 2.25rem !important; line-height: 1.2 !important; }
-            .bn-text { font-size: 1rem !important; }
+        
+        .expertise-card:active {
+            transform: scale(0.95);
+            background: rgba(197, 160, 89, 0.1);
         }
     </style>
 </head>
 <body class="antialiased">
 
-    <!-- Navigation Dots (Hidden on small mobile for cleaner UI) -->
-    <div class="fixed right-4 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-4">
-        <div class="w-3 h-3 rounded-full border border-gold-500 bg-gold-500"></div>
-        <div class="w-2 h-2 rounded-full border border-gray-600"></div>
-        <div class="w-2 h-2 rounded-full border border-gray-600"></div>
-        <div class="w-2 h-2 rounded-full border border-gray-600"></div>
-        <div class="w-2 h-2 rounded-full border border-gray-600"></div>
-        <div class="w-2 h-2 rounded-full border border-gray-600"></div>
+    <!-- Planning Modal -->
+    <div id="planningModal" onclick="closeModal()">
+        <div class="modal-content card-glass p-6 md:p-10" onclick="event.stopPropagation()">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl z-20">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="mb-6 text-center">
+                <h2 class="text-xl md:text-2xl font-extrabold gold-gradient uppercase tracking-wider mb-2">Planning Process</h2>
+                <div class="h-1 w-16 bg-gold-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="space-y-5 mb-8">
+                <div class="flex items-start gap-4">
+                    <div class="w-6 h-6 rounded-full bg-gold-500 text-black flex items-center justify-center font-bold text-xs shrink-0">1</div>
+                    <p class="text-sm text-gray-200">Knowing about the business</p>
+                </div>
+                <div class="flex items-start gap-4">
+                    <div class="w-6 h-6 rounded-full bg-gold-500 text-black flex items-center justify-center font-bold text-xs shrink-0">2</div>
+                    <p class="text-sm text-gray-200">Mapping out all the possible opportunities</p>
+                </div>
+                <div class="flex items-start gap-4">
+                    <div class="w-6 h-6 rounded-full bg-gold-500 text-black flex items-center justify-center font-bold text-xs shrink-0">3</div>
+                    <p class="text-sm text-gray-200">Going through a fine process of researches</p>
+                </div>
+                <div class="flex items-start gap-4">
+                    <div class="w-6 h-6 rounded-full bg-gold-500 text-black flex items-center justify-center font-bold text-xs shrink-0">4</div>
+                    <p class="text-sm text-gray-200">Gathering the generated data</p>
+                </div>
+                <div class="flex items-start gap-4">
+                    <div class="w-6 h-6 rounded-full bg-gold-500 text-black flex items-center justify-center font-bold text-xs shrink-0">5</div>
+                    <p class="text-sm text-gray-200">Finally, tailoring a market beatable marketing plan for your business</p>
+                </div>
+            </div>
+
+            <div class="bg-gold-500/10 border border-gold-500/30 p-4 rounded-xl text-center mb-8">
+                <p class="font-bold text-gold-500 text-xs md:text-sm uppercase tracking-tighter">AND WE DON'T CHARGE FOR THE FIRST SESSION!</p>
+            </div>
+
+            <div class="flex flex-col gap-4 border-t border-white/10 pt-6">
+                <a href="mailto:mail.galaxatech@gmail.com" class="flex items-center justify-center gap-3 text-xs md:text-sm text-gray-300">
+                    <i class="fa-solid fa-envelope gold-text"></i> mail.galaxatech@gmail.com
+                </a>
+                <a href="https://wa.me/8801959209103" target="_blank" class="flex items-center justify-center gap-3 text-xs md:text-sm text-gray-300">
+                    <i class="fa-brands fa-whatsapp gold-text text-lg"></i> +880 1959 209 103
+                </a>
+            </div>
+        </div>
     </div>
 
-    <!-- Slide 1: Hero Section -->
-    <section class="slide-container" id="hero">
+    <!-- Navigation Dots -->
+    <div class="nav-dots fixed right-4 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-4">
+        <div class="w-2 h-2 rounded-full bg-gold-500"></div>
+        <div class="w-1.5 h-1.5 rounded-full border border-gray-600"></div>
+        <div class="w-1.5 h-1.5 rounded-full border border-gray-600"></div>
+        <div class="w-1.5 h-1.5 rounded-full border border-gray-600"></div>
+        <div class="w-1.5 h-1.5 rounded-full border border-gray-600"></div>
+    </div>
+
+    <!-- Slide 1: Hero -->
+    <section class="slide-container">
         <div class="hero-bg"></div>
-        <div class="max-w-6xl w-full text-center reveal-element px-4">
-            <h2 class="text-[10px] md:text-xs uppercase tracking-[0.3em] md:tracking-[0.5em] gold-text mb-4 md:mb-6 font-bold">Galaxa Tech | Vision 2026</h2>
-            <h1 class="text-3xl md:text-7xl font-extrabold mb-6 md:mb-8 uppercase gold-gradient leading-tight">
-                Market Analysis <br class="hidden md:block"> To Skyrocket your <br> SUPER HOME Business
+        <div class="max-w-4xl w-full text-center reveal-element">
+            <h2 class="text-[9px] md:text-xs uppercase tracking-[0.4em] gold-text mb-4 font-bold">Galaxa Tech | Vision 2026</h2>
+            <h1 class="text-4xl md:text-7xl font-extrabold mb-6 uppercase gold-gradient leading-[1.1] tracking-tight">
+                Market Analysis <br> To Skyrocket <br> your Business
             </h1>
-            <p class="bn-text text-lg md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed px-2">
-                স্মার্ট মার্কেটিং ছাড়া আপনার ইনভেস্টমেন্ট কেবল একটি 'Building', কিন্তু আমাদের স্ট্র্যাটেজিতে এটি হবে একটি <span class="gold-text font-bold">'Cash-flow Machine'</span>। প্রথম ৯০ দিনেই আপনার ব্যবসাকে শীর্ষে নিয়ে যাওয়াই আমাদের লক্ষ্য।
+            <p class="bn-text text-base md:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed px-2">
+                স্মার্ট মার্কেটিং ছাড়া আপনার ইনভেস্টমেন্ট কেবল একটি 'Building', কিন্তু আমাদের স্ট্র্যাটেজিতে এটি হবে একটি <span class="gold-text font-bold">'Cash-flow Machine'</span>।
             </p>
-            <div class="mt-8 md:mt-12 flex justify-center gap-6">
-                <i class="fa-solid fa-chevron-down text-xl md:text-2xl gold-text animate-bounce"></i>
+            <div class="mt-12">
+                <i class="fa-solid fa-chevron-down text-xl gold-text animate-bounce"></i>
             </div>
         </div>
     </section>
 
-    <!-- Slide 2: Market Snapshot -->
+    <!-- Slide 2: Market -->
     <section class="slide-container bg-[#080808]">
-        <div class="max-w-6xl w-full grid md:grid-cols-2 gap-8 md:gap-12 items-center px-4">
-            <div class="reveal-element">
-                <h2 class="text-2xl md:text-3xl font-bold uppercase gold-text mb-4 md:mb-6">Market Situation & Competitor Landscape</h2>
-                <p class="bn-text text-base md:text-lg text-gray-400 mb-6 md:mb-8 leading-relaxed">
-                    বর্তমানে ১০০+ মেস বা হোস্টেল থাকলেও প্রাতিষ্ঠানিক ভাবে <span class="text-white">'Smart Living'</span> দিচ্ছে মাত্র হাতেগোনা কয়েকটি ব্র্যান্ড। <span class="text-white font-bold">Super Home</span> বর্তমানে মার্কেট লিডার। চাহিদার তুলনায় সাপ্লাই কম থাকায় এটাই আপনার জেতার সেরা সময়।
+        <div class="max-w-5xl w-full flex flex-col md:flex-row gap-10 items-center">
+            <div class="reveal-element flex-1">
+                <h2 class="text-xl md:text-3xl font-bold uppercase gold-text mb-4">Market Situation</h2>
+                <p class="bn-text text-sm md:text-base text-gray-400 mb-6">
+                    বর্তমানে চাহিদার তুলনায় প্রাতিষ্ঠানিক <span class="text-white">'Smart Living'</span> সাপ্লাই অত্যন্ত কম। এটাই আপনার জেতার সেরা সময়।
                 </p>
-                <div class="space-y-4">
-                    <div class="flex items-center gap-4 card-glass p-4">
-                        <i class="fa-solid fa-house-circle-check gold-text text-xl md:text-2xl"></i>
-                        <div>
-                            <p class="text-[10px] uppercase text-gray-500">Market Leader</p>
-                            <p class="font-bold text-sm md:text-base">Super Home (12,000+ Beds)</p>
-                        </div>
+                <div class="card-glass p-4 flex items-center gap-4">
+                    <i class="fa-solid fa-building-circle-check gold-text text-xl"></i>
+                    <div>
+                        <p class="text-[10px] text-gray-500 uppercase">Super Home</p>
+                        <p class="font-bold text-sm">12,000+ Beds Occupied</p>
                     </div>
                 </div>
             </div>
-            <div class="reveal-element card-glass p-4 md:p-8">
-                <div class="relative h-[250px] md:h-auto">
+            <div class="reveal-element flex-1 w-full card-glass p-4">
+                <div class="chart-box h-[200px] md:h-[280px]">
                     <canvas id="marketChart"></canvas>
                 </div>
-                <p class="text-center text-[10px] mt-4 text-gray-500 uppercase tracking-widest">Supply vs Demand Forecast 2026 (Dhaka)</p>
             </div>
         </div>
     </section>
 
-    <!-- Slide 3: Structure & Tech -->
+    <!-- Slide 3: Tech -->
     <section class="slide-container">
-        <div class="max-w-6xl w-full text-center px-4">
-            <h2 class="text-2xl md:text-3xl font-bold uppercase gold-text mb-4 md:mb-6 reveal-element">Sharing Economy & Tech-driven Operations</h2>
-            <p class="bn-text text-base md:text-lg text-gray-300 mb-8 md:mb-16 max-w-3xl mx-auto reveal-element">
-                আমরা ভবন না কিনে মালিকদের সাথে পার্টনারশিপ মডেলে কাজ করি। নিজস্ব ERP System, Fingerprint Access এবং ২৫+ প্রিমিয়াম সার্ভিসের মাধ্যমে অপারেশনাল কস্ট কমিয়ে আনি।
-            </p>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 reveal-element">
-                <div class="card-glass p-6 md:p-10 hover:border-blue-500 transition-all duration-500 group">
-                    <i class="fa-solid fa-fingerprint text-4xl md:text-5xl mb-4 md:mb-6 group-hover:text-blue-500 transition-colors"></i>
-                    <h3 class="font-bold mb-2 md:mb-4 uppercase tracking-wider text-white text-sm md:text-base">Smart Access</h3>
-                    <p class="bn-text text-xs md:text-sm text-gray-400">নিরাপদ ফিঙ্গারপ্রিন্ট এবং এআই ড্রাইভেন এক্সেস কন্ট্রোল।</p>
+        <div class="max-w-5xl w-full text-center">
+            <h2 class="text-xl md:text-3xl font-bold uppercase gold-text mb-10 reveal-element">Tech-driven Operations</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 reveal-element">
+                <div class="card-glass p-6">
+                    <i class="fa-solid fa-fingerprint text-3xl mb-4 gold-text"></i>
+                    <h3 class="font-bold mb-2 uppercase text-xs md:text-sm tracking-tighter">Smart Access</h3>
+                    <p class="bn-text text-xs text-gray-400">নিরাপদ এআই ড্রাইভেন এক্সেস কন্ট্রোল।</p>
                 </div>
-                <div class="card-glass p-6 md:p-10 border-gold-500 border-opacity-50">
-                    <i class="fa-solid fa-microchip text-4xl md:text-5xl mb-4 md:mb-6 gold-text"></i>
-                    <h3 class="font-bold mb-2 md:mb-4 uppercase tracking-wider text-white text-sm md:text-base">Custom ERP</h3>
-                    <p class="bn-text text-xs md:text-sm text-gray-400">রিয়েল-টাইম রেভিনিউ ট্র্যাকিং এবং বুকিং ম্যানেজমেন্ট।</p>
+                <div class="card-glass p-6 border-gold-500/40">
+                    <i class="fa-solid fa-microchip text-3xl mb-4 gold-text"></i>
+                    <h3 class="font-bold mb-2 uppercase text-xs md:text-sm tracking-tighter">Custom ERP</h3>
+                    <p class="bn-text text-xs text-gray-400">রিয়েল-টাইম রেভিনিউ ট্র্যাকিং।</p>
                 </div>
-                <div class="card-glass p-6 md:p-10 hover:border-blue-500 transition-all duration-500 group">
-                    <i class="fa-solid fa-star text-4xl md:text-5xl mb-4 md:mb-6 group-hover:text-blue-500 transition-colors"></i>
-                    <h3 class="font-bold mb-2 md:mb-4 uppercase tracking-wider text-white text-sm md:text-base">25+ Services</h3>
-                    <p class="bn-text text-xs md:text-sm text-gray-400">জিম, থিয়েটার এবং হাই-স্পিড ইন্টারনেট সহ সকল প্রিমিয়াম সুবিধা।</p>
+                <div class="card-glass p-6">
+                    <i class="fa-solid fa-star text-3xl mb-4 gold-text"></i>
+                    <h3 class="font-bold mb-2 uppercase text-xs md:text-sm tracking-tighter">25+ Services</h3>
+                    <p class="bn-text text-xs text-gray-400">প্রিমিয়াম লাইফস্টাইল সুবিধা।</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Slide 4: Financial Reality -->
+    <!-- Slide 4: Financials -->
     <section class="slide-container bg-[#080808]">
-        <div class="max-w-6xl w-full grid md:grid-cols-2 gap-10 md:gap-16 items-center px-4">
-            <div class="order-2 md:order-1 reveal-element flex flex-col items-center">
-                <div class="w-full max-w-[250px] md:max-w-[300px]">
+        <div class="max-w-5xl w-full flex flex-col md:flex-row-reverse gap-10 items-center">
+            <div class="reveal-element flex-1 text-center md:text-left">
+                <h2 class="text-xl md:text-3xl font-bold uppercase gold-text mb-4">ROI Projections</h2>
+                <p class="bn-text text-sm md:text-base text-gray-300 mb-6">
+                    ৮৫% বুকিং রেট মানেই পজিটিভ <span class="gold-text">Cash-flow</span>। আমাদের মডেলে ব্রেক-ইভেন আসবে দ্রুততম সময়ে।
+                </p>
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="card-glass p-3 border-l-2 border-l-blue-500">
+                        <p class="text-[9px] text-gray-500 uppercase">Growth</p>
+                        <p class="text-sm font-bold">+22% YoY</p>
+                    </div>
+                    <div class="card-glass p-3 border-l-2 border-l-gold-500">
+                        <p class="text-[9px] text-gray-500 uppercase">Break-even</p>
+                        <p class="text-sm font-bold">14-18 Mo</p>
+                    </div>
+                </div>
+            </div>
+            <div class="reveal-element flex-1 flex flex-col items-center">
+                <div class="w-[200px] md:w-[280px]">
                     <canvas id="gaugeChart"></canvas>
                 </div>
-                <div class="text-center mt-4">
-                    <h4 class="text-4xl md:text-5xl font-bold gold-text">85%</h4>
-                    <p class="text-[10px] md:text-sm uppercase tracking-widest text-gray-500">Target Occupancy</p>
-                </div>
-            </div>
-            <div class="order-1 md:order-2 reveal-element">
-                <h2 class="text-2xl md:text-3xl font-bold uppercase gold-text mb-4 md:mb-6 text-center md:text-left">ROI Projections & Risk Mitigation</h2>
-                <p class="bn-text text-base md:text-lg text-gray-300 leading-relaxed text-center md:text-left">
-                    ৮৫% বুকিং রেট মানেই পজিটিভ <span class="gold-text">Cash-flow</span>। সঠিক লিজ ডিল এবং ফান্ডিংয়ের অভাবে যে ঝুঁকি তৈরি হয়, আমাদের ডেটা-ড্রিভেন মডেল সেই ঝুঁকি দূর করে।
-                </p>
-                <div class="mt-8 grid grid-cols-2 gap-3 md:gap-4">
-                    <div class="card-glass p-4 border-l-2 md:border-l-4 border-l-blue-500">
-                        <p class="text-[10px] text-gray-500 uppercase">Growth Rate</p>
-                        <p class="text-lg md:text-xl font-bold">+22% YoY</p>
-                    </div>
-                    <div class="card-glass p-4 border-l-2 md:border-l-4 border-l-gold-500">
-                        <p class="text-[10px] text-gray-500 uppercase">Break-even</p>
-                        <p class="text-lg md:text-xl font-bold">14-18 Mo</p>
-                    </div>
-                </div>
+                <p class="text-3xl font-extrabold gold-text mt-[-20px]">85%</p>
+                <p class="text-[10px] uppercase text-gray-500 tracking-widest">Target Occupancy</p>
             </div>
         </div>
     </section>
 
-    <!-- Slide 5: Marketing Psychology -->
+    <!-- Slide 5: Roadmap -->
     <section class="slide-container">
-        <div class="max-w-6xl w-full flex flex-col md:flex-row gap-10 md:gap-12 items-center px-4">
-            <div class="flex-1 reveal-element">
-                <h2 class="text-2xl md:text-3xl font-bold uppercase gold-text mb-4 md:mb-6 text-center md:text-left">Marketing Psychology: <br>Selling a 'Hassle-free Life'</h2>
-                <p class="bn-text text-base md:text-lg text-gray-300 leading-relaxed mb-6 text-center md:text-left">
-                    আমরা সিট বিক্রি করি না, আমরা বিক্রি করি আধুনিক জীবনযাত্রার নিশ্চয়তা। বাজেটের ২০% ডিজিটাল প্ল্যাটফর্মে বিনিয়োগ করে সরাসরি টার্গেট কাস্টমারের কাছে পৌঁছাই।
-                </p>
-                <ul class="space-y-3 md:space-y-4 max-w-sm mx-auto md:mx-0">
-                    <li class="flex items-center gap-3 bn-text text-sm md:text-base"><i class="fa-solid fa-circle-check gold-text"></i> ফেসবুক অ্যাডস ও লিড জেনারেশন।</li>
-                    <li class="flex items-center gap-3 bn-text text-sm md:text-base"><i class="fa-solid fa-circle-check gold-text"></i> কন্টেন্ট মার্কেটিং (স্টোরি-টেলিং)।</li>
-                    <li class="flex items-center gap-3 bn-text text-sm md:text-base"><i class="fa-solid fa-circle-check gold-text"></i> রি-টার্গেটিং ফর হাই কনভার্সন।</li>
-                </ul>
-            </div>
-            <div class="flex-1 reveal-element relative flex justify-center">
-                <div class="w-48 h-48 md:w-80 md:h-80 rounded-full border-2 border-gold-500 border-dashed animate-[spin_20s_linear_infinite] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-20"></div>
-                <div class="relative z-10 p-8 md:p-12 bg-black rounded-full glow-blue">
-                    <i class="fa-solid fa-brain text-5xl md:text-7xl gold-text"></i>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Slide 6: 90-Day Execution -->
-    <section class="slide-container bg-[#080808]">
-        <div class="max-w-6xl w-full px-4">
-            <h2 class="text-2xl md:text-3xl font-bold uppercase gold-text mb-8 md:mb-12 text-center reveal-element">The 90-Day Skyrocket Roadmap</h2>
-            <div class="relative mt-8 md:mt-20 reveal-element">
-                <!-- Vertical line for mobile, horizontal for desktop -->
-                <div class="absolute w-[1px] h-full bg-gray-800 left-4 top-0 md:hidden"></div>
-                <div class="absolute w-full h-[1px] bg-gray-800 top-0 hidden md:block"></div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 pl-10 md:pl-0">
-                    <div class="relative pt-0 md:pt-8 text-left md:text-center">
-                        <div class="absolute w-3 h-3 bg-gold-500 rounded-full -left-[29px] top-1 md:hidden"></div>
-                        <div class="timeline-dot hidden md:block"></div>
-                        <h4 class="font-bold gold-text mb-2 text-sm md:text-base">MONTH 01: AWARENESS</h4>
-                        <p class="bn-text text-gray-400 text-xs md:text-sm">টিজার এবং হাইপ তৈরির মাধ্যমে ঢাকার মার্কেটে ব্র্যান্ড এন্ট্রি।</p>
+        <div class="max-w-4xl w-full px-4">
+            <h2 class="text-xl md:text-3xl font-bold uppercase gold-text mb-12 text-center reveal-element">90-Day Execution</h2>
+            <div class="relative reveal-element">
+                <div class="absolute w-[1px] h-full bg-gray-800 left-3 top-0"></div>
+                <div class="space-y-10">
+                    <div class="relative pl-10">
+                        <div class="absolute w-2 h-2 bg-gold-500 rounded-full left-[11px] top-1.5"></div>
+                        <h4 class="font-bold gold-text text-xs uppercase">MONTH 1: AWARENESS</h4>
+                        <p class="bn-text text-gray-400 text-xs mt-1">মার্কেটে ব্র্যান্ড এন্ট্রি ও হাইপ তৈরি।</p>
                     </div>
-                    <div class="relative pt-0 md:pt-8 text-left md:text-center">
-                        <div class="absolute w-3 h-3 bg-gold-500 rounded-full -left-[29px] top-1 md:hidden"></div>
-                        <div class="timeline-dot hidden md:block"></div>
-                        <h4 class="font-bold gold-text mb-2 text-sm md:text-base">MONTH 02: ACQUISITION</h4>
-                        <p class="bn-text text-gray-400 text-xs md:text-sm">লিড জেনারেশনের মাধ্যমে বুকিং উইন্ডো ওপেন।</p>
+                    <div class="relative pl-10">
+                        <div class="absolute w-2 h-2 bg-gold-500 rounded-full left-[11px] top-1.5"></div>
+                        <h4 class="font-bold gold-text text-xs uppercase">MONTH 2: ACQUISITION</h4>
+                        <p class="bn-text text-gray-400 text-xs mt-1">লিড জেনারেশন ও বুকিং ওপেন।</p>
                     </div>
-                    <div class="relative pt-0 md:pt-8 text-left md:text-center">
-                        <div class="absolute w-3 h-3 bg-gold-500 rounded-full -left-[29px] top-1 md:hidden"></div>
-                        <div class="timeline-dot hidden md:block"></div>
-                        <h4 class="font-bold gold-text mb-2 text-sm md:text-base">MONTH 03: SCALE UP</h4>
-                        <p class="bn-text text-gray-400 text-xs md:text-sm">৮৫%+ বুকিং নিশ্চিত করা এবং রেফারেল প্রোগ্রাম।</p>
+                    <div class="relative pl-10">
+                        <div class="absolute w-2 h-2 bg-gold-500 rounded-full left-[11px] top-1.5"></div>
+                        <h4 class="font-bold gold-text text-xs uppercase">MONTH 3: SCALE UP</h4>
+                        <p class="bn-text text-gray-400 text-xs mt-1">৮৫%+ বুকিং নিশ্চিতকরণ।</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Slide 7: Call to Action -->
-    <section class="slide-container pb-12">
-        <div class="max-w-6xl w-full text-center px-4">
-            <div class="reveal-element mb-8 md:mb-12">
-                <h2 class="text-3xl md:text-6xl font-extrabold uppercase gold-gradient mb-4 md:mb-6 leading-tight">Don't Just Build, <br>Create a Brand.</h2>
-                <p class="bn-text text-lg md:text-xl text-gray-300 max-w-3xl mx-auto">
-                    আপনার স্বপ্নকে স্কাই রকেট করতে কি আপনি তৈরি? আমাদের এক্সপার্টিজ আপনার ব্যবসাকে দেবে এক অনন্য উচ্চতা।
-                </p>
+    <!-- Slide 6: CTA -->
+    <section class="slide-container">
+        <div class="max-w-4xl w-full text-center">
+            <div class="reveal-element mb-10">
+                <h2 class="text-3xl md:text-5xl font-extrabold uppercase gold-gradient mb-4 leading-tight">Ready to <br>Skyrocket?</h2>
+                <p class="bn-text text-sm md:text-lg text-gray-400">আপনার স্বপ্নকে বাস্তবে রূপ দিতে আমরা তৈরি।</p>
             </div>
 
-            <!-- Expertise Grid -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 mb-10 md:mb-16 reveal-element">
-                <div class="card-glass expertise-card p-4 md:p-6">
-                    <i class="fa-solid fa-laptop-code text-2xl md:text-3xl gold-text mb-3 md:mb-4"></i>
-                    <h3 class="text-[9px] md:text-xs font-bold uppercase tracking-widest text-white mb-2">Websites & Apps</h3>
-                    <div class="h-0.5 w-6 bg-gold-500 mx-auto opacity-30"></div>
+            <div class="grid grid-cols-2 gap-3 mb-12 reveal-element">
+                <div class="card-glass p-4 expertise-card">
+                    <i class="fa-solid fa-laptop-code text-xl gold-text mb-2"></i>
+                    <p class="text-[8px] font-bold uppercase text-white">Digital Tech</p>
                 </div>
-                <div class="card-glass expertise-card p-4 md:p-6">
-                    <i class="fa-solid fa-magnifying-glass-chart text-2xl md:text-3xl gold-text mb-3 md:mb-4"></i>
-                    <h3 class="text-[9px] md:text-xs font-bold uppercase tracking-widest text-white mb-2">Marketing Plans</h3>
-                    <div class="h-0.5 w-6 bg-gold-500 mx-auto opacity-30"></div>
+                <div class="card-glass p-4 expertise-card">
+                    <i class="fa-solid fa-bullseye text-xl gold-text mb-2"></i>
+                    <p class="text-[8px] font-bold uppercase text-white">Target Ads</p>
                 </div>
-                <div class="card-glass expertise-card p-4 md:p-6">
-                    <i class="fa-solid fa-robot text-2xl md:text-3xl gold-text mb-3 md:mb-4"></i>
-                    <h3 class="text-[9px] md:text-xs font-bold uppercase tracking-widest text-white mb-2">AI Automations</h3>
-                    <div class="h-0.5 w-6 bg-gold-500 mx-auto opacity-30"></div>
+                <div class="card-glass p-4 expertise-card">
+                    <i class="fa-solid fa-robot text-xl gold-text mb-2"></i>
+                    <p class="text-[8px] font-bold uppercase text-white">Automation</p>
                 </div>
-                <div class="card-glass expertise-card p-4 md:p-6">
-                    <i class="fa-solid fa-chart-line text-2xl md:text-3xl gold-text mb-3 md:mb-4"></i>
-                    <h3 class="text-[9px] md:text-xs font-bold uppercase tracking-widest text-white mb-2">Financial Models</h3>
-                    <div class="h-0.5 w-6 bg-gold-500 mx-auto opacity-30"></div>
+                <div class="card-glass p-4 expertise-card">
+                    <i class="fa-solid fa-magnifying-glass-chart text-xl gold-text mb-2"></i>
+                    <p class="text-[8px] font-bold uppercase text-white">Market Intel</p>
                 </div>
             </div>
 
             <div class="reveal-element">
-                <button class="bg-[#C5A059] hover:bg-[#D4B372] text-black font-extrabold py-4 md:py-5 px-8 md:px-16 rounded-full text-lg md:text-xl transition-all hover:scale-105 active:scale-95 shadow-[0_0_30px_rgba(197,160,89,0.3)]">
+                <button onclick="openModal()" class="bg-[#C5A059] text-black font-extrabold py-4 px-10 rounded-full text-base uppercase tracking-tighter transition-all active:scale-95 shadow-lg shadow-gold-500/20">
                     Book a Planning Session
                 </button>
             </div>
-
-            <div class="mt-16 md:mt-20 flex flex-col md:flex-row justify-center items-center gap-4 md:gap-8 text-gray-500 text-[9px] md:text-xs tracking-[0.2em] uppercase reveal-element px-4 pb-8 md:pb-0">
-                <a href="#" class="hover:text-white transition-colors">SuperHome Data</a>
-                <span class="hidden md:inline">|</span>
-                <a href="#" class="hover:text-white transition-colors text-center">Startup Risk Index</a>
-                <span class="hidden md:inline">|</span>
-                <a href="#" class="hover:text-white transition-colors">REITs Potential</a>
+            
+            <div class="mt-16 flex flex-wrap justify-center gap-4 text-[8px] text-gray-600 uppercase tracking-widest reveal-element">
+                <span>SuperHome Data</span>
+                <span>•</span>
+                <span>Risk Index</span>
+                <span>•</span>
+                <span>Market Yield</span>
             </div>
         </div>
     </section>
 
     <script>
-        // GSAP Scroll Animations
-        gsap.registerPlugin(ScrollTrigger);
+        // Modal Logic
+        function openModal() {
+            const modal = document.getElementById('planningModal');
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('active'), 10);
+            document.body.style.overflow = 'hidden';
+        }
 
-        document.querySelectorAll('.reveal-element').forEach((el) => {
+        function closeModal() {
+            const modal = document.getElementById('planningModal');
+            modal.classList.remove('active');
+            setTimeout(() => modal.style.display = 'none', 300);
+            document.body.style.overflow = 'auto';
+        }
+
+        // GSAP
+        gsap.registerPlugin(ScrollTrigger);
+        document.querySelectorAll('.reveal-element').forEach(el => {
             gsap.to(el, {
-                scrollTrigger: {
-                    trigger: el,
-                    start: "top 90%",
-                },
-                opacity: 1,
-                y: 0,
-                duration: 1,
-                ease: "power3.out"
+                scrollTrigger: { trigger: el, start: "top 95%" },
+                opacity: 1, y: 0, duration: 0.8, ease: "power2.out"
             });
         });
 
-        // Market Comparison Chart
+        // Charts
+        Chart.defaults.color = '#666';
+        Chart.defaults.font.size = 10;
+
         const ctxMarket = document.getElementById('marketChart').getContext('2d');
         new Chart(ctxMarket, {
             type: 'line',
             data: {
-                labels: ['2023', '2024', '2025', '2026'],
+                labels: ['23', '24', '25', '26'],
                 datasets: [{
                     label: 'Demand',
-                    data: [65, 78, 92, 115],
+                    data: [60, 75, 95, 120],
                     borderColor: '#C5A059',
                     backgroundColor: 'rgba(197, 160, 89, 0.1)',
-                    fill: true,
-                    tension: 0.4,
-                    pointRadius: 3
+                    fill: true, tension: 0.4
                 }, {
-                    label: 'Smart Supply',
-                    data: [10, 15, 22, 35],
+                    label: 'Supply',
+                    data: [10, 15, 20, 28],
                     borderColor: '#0070FF',
-                    borderDash: [5, 5],
-                    tension: 0.4,
-                    pointRadius: 3
+                    borderDash: [5, 5], tension: 0.4
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: { 
-                    legend: { 
-                        position: 'top',
-                        labels: { color: '#888', font: { size: 10 } } 
-                    } 
-                },
-                scales: {
-                    y: { grid: { color: '#222' }, ticks: { color: '#888', font: { size: 10 } } },
-                    x: { grid: { display: false }, ticks: { color: '#888', font: { size: 10 } } }
+                plugins: { legend: { display: false } },
+                scales: { 
+                    y: { grid: { color: '#222' }, ticks: { display: false } },
+                    x: { grid: { display: false } }
                 }
             }
         });
 
-        // Occupancy Gauge Chart
         const ctxGauge = document.getElementById('gaugeChart').getContext('2d');
         new Chart(ctxGauge, {
             type: 'doughnut',
@@ -415,7 +436,7 @@
                 }]
             },
             options: {
-                cutout: '80%',
+                cutout: '85%',
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: { tooltip: { enabled: false } }
