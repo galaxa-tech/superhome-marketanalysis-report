@@ -2,446 +2,346 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>GALAXA TECH | Market Analysis Presentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GALAXATECH | Strategy Blueprint</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&family=Noto+Sans+Bengali:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Noto+Sans+Bengali:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --matte-gold: #C5A059;
-            --deep-black: #050505;
-            --electric-blue: #0070FF;
+            --bg-deep: #0a0a0a;
+            --accent-gold: #C5A059;
+            --accent-red: #ef4444;
+            --card-bg: rgba(23, 23, 23, 0.9);
         }
 
         body {
-            background-color: var(--deep-black);
+            background-color: var(--bg-deep);
             color: #ffffff;
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
             overflow-x: hidden;
-            width: 100%;
-        }
-
-        .bn-text {
-            font-family: 'Noto Sans Bengali', sans-serif;
-        }
-
-        .gold-text {
-            color: var(--matte-gold);
         }
 
         .gold-gradient {
-            background: linear-gradient(135deg, #C5A059 0%, #F1D295 50%, #C5A059 100%);
+            background: linear-gradient(135deg, #fefce8 0%, #C5A059 50%, #78350f 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .slide-container {
-            min-height: 100vh;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 4rem 1.25rem;
-            position: relative;
-            box-sizing: border-box;
-        }
-
-        .card-glass {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(197, 160, 89, 0.2);
-            border-radius: 20px;
-        }
-
         .hero-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(rgba(5, 5, 5, 0.8), rgba(5, 5, 5, 0.95)), 
-                        url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=2070');
+            background: linear-gradient(rgba(10, 10, 10, 0.85), rgba(10, 10, 10, 0.95)), 
+                        url('https://images.unsplash.com/photo-1449824913935-59a10b8d2000?auto=format&fit=crop&q=80&w=1920');
             background-size: cover;
             background-position: center;
-            z-index: -1;
+            background-attachment: fixed;
         }
 
-        .reveal-element {
-            opacity: 0;
-            transform: translateY(20px);
-        }
+        .section-compact { padding: 4rem 1.25rem; }
 
-        /* Modal Mobile Optimization */
-        #planningModal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 1000;
-            backdrop-filter: blur(15px);
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            overflow-y: auto;
-            padding: 1rem;
-        }
-
-        #planningModal.active {
-            display: flex;
-            opacity: 1;
-        }
-
-        .modal-content {
-            max-height: 90vh;
-            overflow-y: auto;
-            width: 100%;
-            max-width: 600px;
-            position: relative;
-        }
-
-        /* Navigation Dots - Hidden on Mobile for cleaner UX */
-        @media (max-width: 768px) {
-            .slide-container {
-                padding-top: 5rem;
-                padding-bottom: 5rem;
-            }
-            h1 { font-size: 2.2rem !important; }
-            .nav-dots { display: none; }
-            .chart-box { height: 220px !important; }
-        }
-
-        .timeline-dot::after {
-            content: '';
-            position: absolute;
-            width: 12px;
-            height: 12px;
-            background: var(--matte-gold);
-            border-radius: 50%;
-            top: -6px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .expertise-card {
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 1rem;
             transition: all 0.3s ease;
         }
-        
-        .expertise-card:active {
-            transform: scale(0.95);
-            background: rgba(197, 160, 89, 0.1);
+
+        .expertise-card:hover {
+            border-color: var(--accent-gold);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -10px rgba(197, 160, 89, 0.2);
+        }
+
+        .highlight-line {
+            display: inline-block;
+            position: relative;
+            padding-bottom: 5px;
+        }
+
+        .highlight-line::after {
+            content: '';
+            position: absolute;
+            width: 40%;
+            height: 3px;
+            background: var(--accent-gold);
+            bottom: 0;
+            left: 0;
+            border-radius: 2px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(8px);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active { display: flex; }
+
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease-out;
+        }
+
+        .scroll-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 640px) {
+            .section-compact { padding: 3.5rem 1rem; }
+            h1 { font-size: 2.2rem !important; }
         }
     </style>
 </head>
-<body class="antialiased">
+<body>
 
-    <!-- Planning Modal -->
-    <div id="planningModal" onclick="closeModal()">
-        <div class="modal-content card-glass p-6 md:p-10" onclick="event.stopPropagation()">
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl z-20">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-
-            <div class="mb-6 text-center">
-                <h2 class="text-xl md:text-2xl font-extrabold gold-gradient uppercase tracking-wider mb-2">Planning Process</h2>
-                <div class="h-1 w-16 bg-gold-500 mx-auto rounded-full"></div>
-            </div>
-
-            <div class="space-y-5 mb-8">
-                <div class="flex items-start gap-4">
-                    <div class="w-6 h-6 rounded-full bg-gold-500 text-black flex items-center justify-center font-bold text-xs shrink-0">1</div>
-                    <p class="text-sm text-gray-200">Knowing about the business</p>
-                </div>
-                <div class="flex items-start gap-4">
-                    <div class="w-6 h-6 rounded-full bg-gold-500 text-black flex items-center justify-center font-bold text-xs shrink-0">2</div>
-                    <p class="text-sm text-gray-200">Mapping out all the possible opportunities</p>
-                </div>
-                <div class="flex items-start gap-4">
-                    <div class="w-6 h-6 rounded-full bg-gold-500 text-black flex items-center justify-center font-bold text-xs shrink-0">3</div>
-                    <p class="text-sm text-gray-200">Going through a fine process of researches</p>
-                </div>
-                <div class="flex items-start gap-4">
-                    <div class="w-6 h-6 rounded-full bg-gold-500 text-black flex items-center justify-center font-bold text-xs shrink-0">4</div>
-                    <p class="text-sm text-gray-200">Gathering the generated data</p>
-                </div>
-                <div class="flex items-start gap-4">
-                    <div class="w-6 h-6 rounded-full bg-gold-500 text-black flex items-center justify-center font-bold text-xs shrink-0">5</div>
-                    <p class="text-sm text-gray-200">Finally, tailoring a market beatable marketing plan for your business</p>
-                </div>
-            </div>
-
-            <div class="bg-gold-500/10 border border-gold-500/30 p-4 rounded-xl text-center mb-8">
-                <p class="font-bold text-gold-500 text-xs md:text-sm uppercase tracking-tighter">AND WE DON'T CHARGE FOR THE FIRST SESSION!</p>
-            </div>
-
-            <div class="flex flex-col gap-4 border-t border-white/10 pt-6">
-                <a href="mailto:mail.galaxatech@gmail.com" class="flex items-center justify-center gap-3 text-xs md:text-sm text-gray-300">
-                    <i class="fa-solid fa-envelope gold-text"></i> mail.galaxatech@gmail.com
-                </a>
-                <a href="https://wa.me/8801959209103" target="_blank" class="flex items-center justify-center gap-3 text-xs md:text-sm text-gray-300">
-                    <i class="fa-brands fa-whatsapp gold-text text-lg"></i> +880 1959 209 103
-                </a>
-            </div>
+    <!-- Nav -->
+    <nav class="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/5 px-6 py-3 flex justify-between items-center">
+        <div class="flex items-center">
+            <span class="font-bold tracking-tighter text-xl uppercase">GALAXA<span class="text-[#ef4444]">TECH</span></span>
         </div>
-    </div>
+        <div class="hidden sm:block text-[9px] uppercase tracking-widest font-bold text-zinc-500">Market Analysis 2026</div>
+    </nav>
 
-    <!-- Navigation Dots -->
-    <div class="nav-dots fixed right-4 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-4">
-        <div class="w-2 h-2 rounded-full bg-gold-500"></div>
-        <div class="w-1.5 h-1.5 rounded-full border border-gray-600"></div>
-        <div class="w-1.5 h-1.5 rounded-full border border-gray-600"></div>
-        <div class="w-1.5 h-1.5 rounded-full border border-gray-600"></div>
-        <div class="w-1.5 h-1.5 rounded-full border border-gray-600"></div>
-    </div>
-
-    <!-- Slide 1: Hero -->
-    <section class="slide-container">
-        <div class="hero-bg"></div>
-        <div class="max-w-4xl w-full text-center reveal-element">
-            <h2 class="text-[9px] md:text-xs uppercase tracking-[0.4em] gold-text mb-4 font-bold">Galaxa Tech | Vision 2026</h2>
-            <h1 class="text-4xl md:text-7xl font-extrabold mb-6 uppercase gold-gradient leading-[1.1] tracking-tight">
-                Market Analysis <br> To Skyrocket <br> your Business
+    <!-- HERO -->
+    <section class="min-h-screen flex items-center justify-center pt-16 relative overflow-hidden hero-bg">
+        <div class="max-w-5xl mx-auto text-center px-4 z-10">
+            <span class="text-[#C5A059] font-bold text-xs uppercase tracking-[0.3em] mb-4 block">Strategic Blueprint</span>
+            <h1 class="text-4xl md:text-7xl font-extrabold mb-8 leading-[1.1]">
+                Market Analysis To Skyrocket your<br>
+                <span class="gold-gradient italic">SUPER HOME Business</span>
             </h1>
-            <p class="bn-text text-base md:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed px-2">
-                স্মার্ট মার্কেটিং ছাড়া আপনার ইনভেস্টমেন্ট কেবল একটি 'Building', কিন্তু আমাদের স্ট্র্যাটেজিতে এটি হবে একটি <span class="gold-text font-bold">'Cash-flow Machine'</span>।
+            <p class="max-w-2xl mx-auto text-zinc-400 text-sm md:text-lg mb-10 leading-relaxed">
+                আপনার বিজনেসকে পরবর্তী লেভেলে নিয়ে যেতে আমাদের বিশেষায়িত ডেটা-ড্রিভেন স্ট্র্যাটেজি।
             </p>
-            <div class="mt-12">
-                <i class="fa-solid fa-chevron-down text-xl gold-text animate-bounce"></i>
-            </div>
+            <a href="#analysis" class="bg-white text-black px-8 py-3.5 rounded-full font-bold text-sm hover:bg-[#C5A059] transition-all inline-flex items-center gap-2">
+                নিচে স্ক্রল করুন
+                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 14l-7 7-7-7m14-8l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </a>
         </div>
     </section>
 
-    <!-- Slide 2: Market -->
-    <section class="slide-container bg-[#080808]">
-        <div class="max-w-5xl w-full flex flex-col md:flex-row gap-10 items-center">
-            <div class="reveal-element flex-1">
-                <h2 class="text-xl md:text-3xl font-bold uppercase gold-text mb-4">Market Situation</h2>
-                <p class="bn-text text-sm md:text-base text-gray-400 mb-6">
-                    বর্তমানে চাহিদার তুলনায় প্রাতিষ্ঠানিক <span class="text-white">'Smart Living'</span> সাপ্লাই অত্যন্ত কম। এটাই আপনার জেতার সেরা সময়।
-                </p>
-                <div class="card-glass p-4 flex items-center gap-4">
-                    <i class="fa-solid fa-building-circle-check gold-text text-xl"></i>
-                    <div>
-                        <p class="text-[10px] text-gray-500 uppercase">Super Home</p>
-                        <p class="font-bold text-sm">12,000+ Beds Occupied</p>
+    <!-- 1: Market Crisis -->
+    <section id="analysis" class="section-compact bg-[#080808]">
+        <div class="max-w-6xl mx-auto">
+            <h3 class="text-3xl md:text-4xl font-extrabold mb-8 highlight-line scroll-reveal">কেন এখনই উপযুক্ত সময়?</h3>
+            <div class="grid md:grid-cols-2 gap-10">
+                <div class="scroll-reveal">
+                    <p class="text-zinc-400 mb-6 text-sm md:text-base leading-relaxed">
+                        ঢাকায় আবাসন সংকট বর্তমানে তুঙ্গে। ৪.৭ মিলিয়ন শিক্ষার্থীর বিপরীতে প্রাতিষ্ঠানিক আবাসন মাত্র ৪৬,০০০। এই বিশাল চাহিদাই আপনার ব্যবসার মূল শক্তি।
+                    </p>
+                    <div class="p-6 glass-card border-l-4 border-red-500">
+                        <div class="text-5xl font-black text-red-500">102:1</div>
+                        <p class="text-xs uppercase font-bold text-zinc-500 mt-2">Demand vs Supply Gap</p>
                     </div>
                 </div>
-            </div>
-            <div class="reveal-element flex-1 w-full card-glass p-4">
-                <div class="chart-box h-[200px] md:h-[280px]">
-                    <canvas id="marketChart"></canvas>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Slide 3: Tech -->
-    <section class="slide-container">
-        <div class="max-w-5xl w-full text-center">
-            <h2 class="text-xl md:text-3xl font-bold uppercase gold-text mb-10 reveal-element">Tech-driven Operations</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 reveal-element">
-                <div class="card-glass p-6">
-                    <i class="fa-solid fa-fingerprint text-3xl mb-4 gold-text"></i>
-                    <h3 class="font-bold mb-2 uppercase text-xs md:text-sm tracking-tighter">Smart Access</h3>
-                    <p class="bn-text text-xs text-gray-400">নিরাপদ এআই ড্রাইভেন এক্সেস কন্ট্রোল।</p>
-                </div>
-                <div class="card-glass p-6 border-gold-500/40">
-                    <i class="fa-solid fa-microchip text-3xl mb-4 gold-text"></i>
-                    <h3 class="font-bold mb-2 uppercase text-xs md:text-sm tracking-tighter">Custom ERP</h3>
-                    <p class="bn-text text-xs text-gray-400">রিয়েল-টাইম রেভিনিউ ট্র্যাকিং।</p>
-                </div>
-                <div class="card-glass p-6">
-                    <i class="fa-solid fa-star text-3xl mb-4 gold-text"></i>
-                    <h3 class="font-bold mb-2 uppercase text-xs md:text-sm tracking-tighter">25+ Services</h3>
-                    <p class="bn-text text-xs text-gray-400">প্রিমিয়াম লাইফস্টাইল সুবিধা।</p>
+                <div class="glass-card p-8 scroll-reveal">
+                    <h4 class="font-bold mb-4 text-[#C5A059]">মূল চ্যালেঞ্জসমূহ:</h4>
+                    <ul class="space-y-3 text-xs md:text-sm text-zinc-300">
+                        <li class="flex items-center gap-2"><span>●</span> মানসম্মত হোস্টেলের অভাব</li>
+                        <li class="flex items-center gap-2"><span>●</span> অনিরাপদ আবাসন ব্যবস্থা</li>
+                        <li class="flex items-center gap-2"><span>●</span> অসামঞ্জস্যপূর্ণ ভাড়া ও সার্ভিস</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Slide 4: Financials -->
-    <section class="slide-container bg-[#080808]">
-        <div class="max-w-5xl w-full flex flex-col md:flex-row-reverse gap-10 items-center">
-            <div class="reveal-element flex-1 text-center md:text-left">
-                <h2 class="text-xl md:text-3xl font-bold uppercase gold-text mb-4">ROI Projections</h2>
-                <p class="bn-text text-sm md:text-base text-gray-300 mb-6">
-                    ৮৫% বুকিং রেট মানেই পজিটিভ <span class="gold-text">Cash-flow</span>। আমাদের মডেলে ব্রেক-ইভেন আসবে দ্রুততম সময়ে।
-                </p>
-                <div class="grid grid-cols-2 gap-3">
-                    <div class="card-glass p-3 border-l-2 border-l-blue-500">
-                        <p class="text-[9px] text-gray-500 uppercase">Growth</p>
-                        <p class="text-sm font-bold">+22% YoY</p>
-                    </div>
-                    <div class="card-glass p-3 border-l-2 border-l-gold-500">
-                        <p class="text-[9px] text-gray-500 uppercase">Break-even</p>
-                        <p class="text-sm font-bold">14-18 Mo</p>
-                    </div>
+    <!-- 2: Financials -->
+    <section class="section-compact">
+        <div class="max-w-6xl mx-auto">
+            <h3 class="text-3xl md:text-4xl font-extrabold mb-8 highlight-line scroll-reveal">আয়ের সম্ভাব্য রোডম্যাপ</h3>
+            <div class="grid sm:grid-cols-2 gap-6 scroll-reveal">
+                <div class="p-8 glass-card border-t-2 border-[#C5A059]">
+                    <div class="text-4xl font-black mb-2 text-[#C5A059]">85%+</div>
+                    <h4 class="font-bold mb-2">Occupancy Rate</h4>
+                    <p class="text-xs text-zinc-500">পরবর্তী ৯০ দিনে পূর্ণ সক্ষমতায় পৌঁছানোর লক্ষ্যমাত্রা।</p>
                 </div>
-            </div>
-            <div class="reveal-element flex-1 flex flex-col items-center">
-                <div class="w-[200px] md:w-[280px]">
-                    <canvas id="gaugeChart"></canvas>
-                </div>
-                <p class="text-3xl font-extrabold gold-text mt-[-20px]">85%</p>
-                <p class="text-[10px] uppercase text-gray-500 tracking-widest">Target Occupancy</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Slide 5: Roadmap -->
-    <section class="slide-container">
-        <div class="max-w-4xl w-full px-4">
-            <h2 class="text-xl md:text-3xl font-bold uppercase gold-text mb-12 text-center reveal-element">90-Day Execution</h2>
-            <div class="relative reveal-element">
-                <div class="absolute w-[1px] h-full bg-gray-800 left-3 top-0"></div>
-                <div class="space-y-10">
-                    <div class="relative pl-10">
-                        <div class="absolute w-2 h-2 bg-gold-500 rounded-full left-[11px] top-1.5"></div>
-                        <h4 class="font-bold gold-text text-xs uppercase">MONTH 1: AWARENESS</h4>
-                        <p class="bn-text text-gray-400 text-xs mt-1">মার্কেটে ব্র্যান্ড এন্ট্রি ও হাইপ তৈরি।</p>
-                    </div>
-                    <div class="relative pl-10">
-                        <div class="absolute w-2 h-2 bg-gold-500 rounded-full left-[11px] top-1.5"></div>
-                        <h4 class="font-bold gold-text text-xs uppercase">MONTH 2: ACQUISITION</h4>
-                        <p class="bn-text text-gray-400 text-xs mt-1">লিড জেনারেশন ও বুকিং ওপেন।</p>
-                    </div>
-                    <div class="relative pl-10">
-                        <div class="absolute w-2 h-2 bg-gold-500 rounded-full left-[11px] top-1.5"></div>
-                        <h4 class="font-bold gold-text text-xs uppercase">MONTH 3: SCALE UP</h4>
-                        <p class="bn-text text-gray-400 text-xs mt-1">৮৫%+ বুকিং নিশ্চিতকরণ।</p>
-                    </div>
+                <div class="p-8 glass-card border-t-2 border-blue-500">
+                    <div class="text-4xl font-black mb-2 text-blue-500">20-40%</div>
+                    <h4 class="font-bold mb-2">Revenue Premium</h4>
+                    <p class="text-xs text-zinc-500">স্মার্ট মডেল ব্যবহারের মাধ্যমে অতিরিক্ত মুনাফা অর্জন।</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Slide 6: CTA -->
-    <section class="slide-container">
-        <div class="max-w-4xl w-full text-center">
-            <div class="reveal-element mb-10">
-                <h2 class="text-3xl md:text-5xl font-extrabold uppercase gold-gradient mb-4 leading-tight">Ready to <br>Skyrocket?</h2>
-                <p class="bn-text text-sm md:text-lg text-gray-400">আপনার স্বপ্নকে বাস্তবে রূপ দিতে আমরা তৈরি।</p>
-            </div>
-
-            <div class="grid grid-cols-2 gap-3 mb-12 reveal-element">
-                <div class="card-glass p-4 expertise-card">
-                    <i class="fa-solid fa-laptop-code text-xl gold-text mb-2"></i>
-                    <p class="text-[8px] font-bold uppercase text-white">Digital Tech</p>
+    <!-- 3: Retention -->
+    <section class="section-compact bg-[#080808]">
+        <div class="max-w-6xl mx-auto">
+            <h3 class="text-3xl md:text-4xl font-extrabold mb-8 highlight-line scroll-reveal">স্থায়ী গ্রাহক ও গ্রোথ</h3>
+            <div class="grid md:grid-cols-2 gap-10 items-center">
+                <div class="scroll-reveal">
+                    <p class="text-zinc-400 italic mb-6">"গ্রাহককে খুশি রাখা মানেই ব্যবসার দীর্ঘমেয়াদী উন্নতি।"</p>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="p-4 glass-card text-center">
+                            <div class="text-2xl font-bold">43%</div>
+                            <div class="text-[10px] text-zinc-500 uppercase">Renewal Rate</div>
+                        </div>
+                        <div class="p-4 glass-card text-center">
+                            <div class="text-2xl font-bold text-[#C5A059]">High</div>
+                            <div class="text-[10px] text-zinc-500 uppercase">Referral Value</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-glass p-4 expertise-card">
-                    <i class="fa-solid fa-bullseye text-xl gold-text mb-2"></i>
-                    <p class="text-[8px] font-bold uppercase text-white">Target Ads</p>
-                </div>
-                <div class="card-glass p-4 expertise-card">
-                    <i class="fa-solid fa-robot text-xl gold-text mb-2"></i>
-                    <p class="text-[8px] font-bold uppercase text-white">Automation</p>
-                </div>
-                <div class="card-glass p-4 expertise-card">
-                    <i class="fa-solid fa-magnifying-glass-chart text-xl gold-text mb-2"></i>
-                    <p class="text-[8px] font-bold uppercase text-white">Market Intel</p>
+                <div class="scroll-reveal p-6 glass-card bg-zinc-900/40">
+                    <p class="text-sm text-zinc-300">আমরা শুধু বেড বিক্রি করি না, আমরা একটি আধুনিক 'কমিউনিটি' তৈরি করি যা গ্রাহকদের আপনার ব্র্যান্ডের সাথে জুড়ে রাখে।</p>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div class="reveal-element">
-                <button onclick="openModal()" class="bg-[#C5A059] text-black font-extrabold py-4 px-10 rounded-full text-base uppercase tracking-tighter transition-all active:scale-95 shadow-lg shadow-gold-500/20">
-                    Book a Planning Session
+    <!-- 4: Strategy Mix -->
+    <section class="section-compact">
+        <div class="max-w-6xl mx-auto">
+            <h3 class="text-3xl md:text-4xl font-extrabold mb-8 highlight-line scroll-reveal">মার্কেটিং স্ট্র্যাটেজি মিক্স</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 scroll-reveal">
+                <div class="p-5 glass-card text-center">
+                    <div class="text-2xl mb-2">📱</div>
+                    <h5 class="text-[11px] font-bold uppercase">Performance Ads</h5>
+                </div>
+                <div class="p-5 glass-card text-center">
+                    <div class="text-2xl mb-2">🤳</div>
+                    <h5 class="text-[11px] font-bold uppercase">UGC Content</h5>
+                </div>
+                <div class="p-5 glass-card text-center">
+                    <div class="text-2xl mb-2">🏫</div>
+                    <h5 class="text-[11px] font-bold uppercase">Campus BTL</h5>
+                </div>
+                <div class="p-5 glass-card text-center">
+                    <div class="text-2xl mb-2">🤖</div>
+                    <h5 class="text-[11px] font-bold uppercase">AI Funnels</h5>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5: Target -->
+    <section class="section-compact bg-[#080808]">
+        <div class="max-w-6xl mx-auto">
+            <h3 class="text-3xl md:text-4xl font-extrabold mb-8 highlight-line scroll-reveal">আপনার মূল গ্রাহক কারা?</h3>
+            <div class="grid md:grid-cols-3 gap-6 scroll-reveal">
+                <div class="p-6 glass-card border-b-2 border-blue-500">
+                    <h4 class="font-bold mb-3">উচ্চাভিলাষী শিক্ষার্থী</h4>
+                    <p class="text-xs text-zinc-500">যারা পড়াশোনার পাশাপাশি একটি স্মার্ট লাইফস্টাইল খুঁজছেন।</p>
+                </div>
+                <div class="p-6 glass-card border-b-2 border-[#C5A059]">
+                    <h4 class="font-bold mb-3">স্মার্ট প্রফেশনালস</h4>
+                    <p class="text-xs text-zinc-500">তরুণ কর্পোরেট যারা নির্ঝঞ্ঝাট ও কোয়ালিটি লিভিং পছন্দ করেন।</p>
+                </div>
+                <div class="p-6 glass-card border-b-2 border-zinc-500">
+                    <h4 class="font-bold mb-3">ডিজিটাল নেটিভস</h4>
+                    <p class="text-xs text-zinc-500">সোশ্যাল মিডিয়ায় সক্রিয় প্রজন্ম যারা কমিউনিটি লিভিংয়ে আগ্রহী।</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7: Final CTA & Expertises -->
+    <section class="section-compact bg-gradient-to-t from-zinc-900 to-transparent pb-20">
+        <div class="max-w-6xl mx-auto text-center">
+            <h3 class="text-4xl md:text-6xl font-black mb-6 scroll-reveal leading-tight">Don't Just Build,<br><span class="gold-gradient">Create a Brand.</span></h3>
+            <p class="text-zinc-400 mb-16 scroll-reveal text-sm md:text-lg max-w-2xl mx-auto">
+                আপনার স্বপ্নকে স্কাই রকেট করতে কি আপনি তৈরি? আমাদের এক্সপার্টিজ আপনার ব্যবসাকে দেবে এক অনন্য উচ্চতা।
+            </p>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-20 scroll-reveal">
+                <!-- Website & Apps -->
+                <div class="p-6 glass-card expertise-card text-left relative overflow-hidden group">
+                    <div class="text-[#C5A059] mb-4 text-3xl">
+                        <svg width="32" height="32" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                    </div>
+                    <h4 class="font-bold text-sm mb-2 tracking-wide uppercase">Websites & Apps</h4>
+                    <p class="text-[10px] text-zinc-500 leading-relaxed">হাই-কনভার্টিং সেলস ফানেল এবং প্রিমিয়াম ইউজার এক্সপেরিয়েন্স ডিজাইন।</p>
+                </div>
+
+                <!-- Marketing Plans -->
+                <div class="p-6 glass-card expertise-card text-left relative overflow-hidden group">
+                    <div class="text-[#C5A059] mb-4 text-3xl">
+                        <svg width="32" height="32" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                    </div>
+                    <h4 class="font-bold text-sm mb-2 tracking-wide uppercase">Marketing Plans</h4>
+                    <p class="text-[10px] text-zinc-500 leading-relaxed">ডেটা-ব্যাকড এবং রেজাল্ট ফোকাসড কাস্টম মার্কেটিং রোডম্যাপ।</p>
+                </div>
+
+                <!-- AI Automations -->
+                <div class="p-6 glass-card expertise-card text-left relative overflow-hidden group">
+                    <div class="text-[#C5A059] mb-4 text-3xl">
+                        <svg width="32" height="32" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                    </div>
+                    <h4 class="font-bold text-sm mb-2 tracking-wide uppercase">AI Automations</h4>
+                    <p class="text-[10px] text-zinc-500 leading-relaxed">আপনার অপারেশনাল খরচ কমাতে লেটেস্ট AI ওয়ার্কফ্লো ইমপ্লিমেন্টেশন।</p>
+                </div>
+
+                <!-- Financial Models -->
+                <div class="p-6 glass-card expertise-card text-left relative overflow-hidden group">
+                    <div class="text-[#C5A059] mb-4 text-3xl">
+                        <svg width="32" height="32" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                    </div>
+                    <h4 class="font-bold text-sm mb-2 tracking-wide uppercase">Financial Models</h4>
+                    <p class="text-[10px] text-zinc-500 leading-relaxed">ইনভেস্টমেন্ট সুরক্ষা এবং সর্বোচ্চ ROI নিশ্চিত করতে ফিন্যান্সিয়াল প্ল্যানিং।</p>
+                </div>
+            </div>
+
+            <div class="scroll-reveal">
+                <button onclick="toggleModal(true)" class="bg-[#C5A059] text-black px-12 py-5 rounded-full font-black text-lg hover:scale-105 transition-transform shadow-[0_0_40px_rgba(197,160,89,0.3)]">
+                    FREE Planning Session
                 </button>
             </div>
-            
-            <div class="mt-16 flex flex-wrap justify-center gap-4 text-[8px] text-gray-600 uppercase tracking-widest reveal-element">
-                <span>SuperHome Data</span>
-                <span>•</span>
-                <span>Risk Index</span>
-                <span>•</span>
-                <span>Market Yield</span>
-            </div>
         </div>
     </section>
 
+    <!-- Modal -->
+    <div id="planModal" class="modal">
+        <div class="glass-card max-w-xl w-full p-8 md:p-10 relative border border-[#C5A059]/30">
+            <button onclick="toggleModal(false)" class="absolute top-4 right-4 text-zinc-500 hover:text-white">✕</button>
+            <h4 class="text-2xl font-bold mb-6 text-[#C5A059]">আমাদের প্ল্যানিং প্রোসেস</h4>
+            <div class="space-y-4 text-left text-sm text-zinc-300">
+                <div class="flex gap-3"><span class="text-[#C5A059] font-bold">01.</span> Knowing about the business</div>
+                <div class="flex gap-3"><span class="text-[#C5A059] font-bold">02.</span> Mapping out all the possible opportunities</div>
+                <div class="flex gap-3"><span class="text-[#C5A059] font-bold">03.</span> Going through a fine process of researches</div>
+                <div class="flex gap-3"><span class="text-[#C5A059] font-bold">04.</span> Gathering the generated data</div>
+                <div class="flex gap-3"><span class="text-[#C5A059] font-bold">05.</span> Tailoring a market beatable marketing plan</div>
+            </div>
+            <div class="mt-8 pt-6 border-t border-white/10 text-center">
+                <p class="text-xs font-bold text-green-500 mb-6 uppercase tracking-widest">AND WE DON'T CHARGE FOR THE FIRST SESSION!</p>
+                <div class="space-y-2 bg-black/30 p-4 rounded-lg">
+                    <p class="text-sm font-bold text-zinc-400 mb-2">Book Now:</p>
+                    <div class="flex flex-col gap-1">
+                        <a href="mailto:mail.galaxatech@gmail.com" class="text-[#C5A059] font-mono text-sm hover:underline">mail.galaxatech@gmail.com</a>
+                        <a href="https://wa.me/8801959209103" class="text-[#C5A059] font-mono text-sm hover:underline">+880 1959 209 103</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="py-12 text-center text-[10px] text-zinc-700 uppercase tracking-[0.4em] border-t border-white/5">
+        &copy; 2026 GALAXATECH | Skyrocket Your Vision
+    </footer>
+
     <script>
-        // Modal Logic
-        function openModal() {
-            const modal = document.getElementById('planningModal');
-            modal.style.display = 'flex';
-            setTimeout(() => modal.classList.add('active'), 10);
-            document.body.style.overflow = 'hidden';
+        function toggleModal(show) {
+            document.getElementById('planModal').classList.toggle('active', show);
         }
 
-        function closeModal() {
-            const modal = document.getElementById('planningModal');
-            modal.classList.remove('active');
-            setTimeout(() => modal.style.display = 'none', 300);
-            document.body.style.overflow = 'auto';
-        }
-
-        // GSAP
-        gsap.registerPlugin(ScrollTrigger);
-        document.querySelectorAll('.reveal-element').forEach(el => {
-            gsap.to(el, {
-                scrollTrigger: { trigger: el, start: "top 95%" },
-                opacity: 1, y: 0, duration: 0.8, ease: "power2.out"
-            });
-        });
-
-        // Charts
-        Chart.defaults.color = '#666';
-        Chart.defaults.font.size = 10;
-
-        const ctxMarket = document.getElementById('marketChart').getContext('2d');
-        new Chart(ctxMarket, {
-            type: 'line',
-            data: {
-                labels: ['23', '24', '25', '26'],
-                datasets: [{
-                    label: 'Demand',
-                    data: [60, 75, 95, 120],
-                    borderColor: '#C5A059',
-                    backgroundColor: 'rgba(197, 160, 89, 0.1)',
-                    fill: true, tension: 0.4
-                }, {
-                    label: 'Supply',
-                    data: [10, 15, 20, 28],
-                    borderColor: '#0070FF',
-                    borderDash: [5, 5], tension: 0.4
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
-                scales: { 
-                    y: { grid: { color: '#222' }, ticks: { display: false } },
-                    x: { grid: { display: false } }
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
                 }
-            }
-        });
+            });
+        }, observerOptions);
 
-        const ctxGauge = document.getElementById('gaugeChart').getContext('2d');
-        new Chart(ctxGauge, {
-            type: 'doughnut',
-            data: {
-                datasets: [{
-                    data: [85, 15],
-                    backgroundColor: ['#C5A059', '#111'],
-                    borderWidth: 0,
-                    circumference: 180,
-                    rotation: 270
-                }]
-            },
-            options: {
-                cutout: '85%',
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { tooltip: { enabled: false } }
-            }
-        });
+        document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
     </script>
 </body>
 </html>
